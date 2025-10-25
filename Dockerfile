@@ -1,21 +1,32 @@
-# Используем Node.js как базу
-FROM node:18-bullseye
+# Используем официальный образ n8n
+FROM n8nio/n8n:1.80.1
 
-# Создаём рабочую папку
+# Рабочая папка
 WORKDIR /data
 
-# Устанавливаем n8n глобально
-RUN npm install -g n8n@1.80.1
-
-# Render автоматически подставляет переменную PORT
+# Порт и хост, подставляемые Render
 ENV N8N_PORT=$PORT
-ENV N8N_PROTOCOL=http
 ENV N8N_HOST=0.0.0.0
+ENV N8N_PROTOCOL=https
+
+# Публичный URL Render — обязательно указываем свой
+ENV WEBHOOK_TUNNEL_URL=https://n8n-render-nwa4.onrender.com/
 
 # Авторизация
 ENV N8N_BASIC_AUTH_ACTIVE=true
 ENV N8N_BASIC_AUTH_USER=admin
 ENV N8N_BASIC_AUTH_PASSWORD=admin123
 
-# Запуск
+# Включаем Task Runners
+ENV N8N_RUNNERS_ENABLED=true
+
+# Настройки PostgreSQL (замени на свои)
+ENV DB_TYPE=postgres
+ENV DB_POSTGRESDB_HOST=<POSTGRES_HOST>
+ENV DB_POSTGRESDB_PORT=<POSTGRES_PORT>
+ENV DB_POSTGRESDB_DATABASE=<POSTGRES_DB>
+ENV DB_POSTGRESDB_USER=<POSTGRES_USER>
+ENV DB_POSTGRESDB_PASSWORD=<POSTGRES_PASSWORD>
+
+# Запуск n8n
 CMD ["n8n", "start"]
