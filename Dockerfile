@@ -1,5 +1,5 @@
 # Используем официальный образ n8n
-FROM n8nio/n8n:latest
+FROM n8nio/n8n:1.80.1
 
 # Указываем папку для данных
 WORKDIR /data
