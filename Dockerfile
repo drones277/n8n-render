@@ -15,8 +15,7 @@ ENV N8N_BASIC_AUTH_ACTIVE=true
 ENV N8N_BASIC_AUTH_USER=admin
 ENV N8N_BASIC_AUTH_PASSWORD=admin123
 
-# Включаем Task Runners
+# Task Runners
 ENV N8N_RUNNERS_ENABLED=true
 
 CMD ["n8n", "start"]
-
